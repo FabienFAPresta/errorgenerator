@@ -12,6 +12,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.0.0
 
+      - name: Install dependencies
+        shell: bash
+        run: composer install
+
       - name: Clean-up project
         uses: PrestaShopCorp/github-action-clean-before-deploy@v2.0
         with:

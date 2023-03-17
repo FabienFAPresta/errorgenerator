@@ -1,0 +1,15 @@
+errorgenerator_throw_error:
+  path: errorgenerator/throw-error
+  methods: [GET]
+  defaults:
+    _controller: PrestaShop\Module\ErrorGenerator\Controller\AdminErrorGeneratorController::throwError
+    _legacy_controller: 'AdminErrorGeneratorController'
+    _legacy_link: 'AdminErrorGeneratorController'
+
+errorgenerator_throw_twig_error:
+  path: errorgenerator/throw-twig-error
+  methods: [GET]
+  defaults:
+    _controller: PrestaShop\Module\ErrorGenerator\Controller\AdminErrorGeneratorController::throwTwigError
+    _legacy_controller: 'AdminErrorGeneratorController'
+    _legacy_link: 'AdminErrorGeneratorController'

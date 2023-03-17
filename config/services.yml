@@ -1,0 +1,4 @@
+services:
+  PrestaShop\Module\ErrorGenerator\Controller\AdminErrorGeneratorController:
+    class: PrestaShop\Module\ErrorGenerator\Controller\AdminErrorGeneratorController
+    public: true

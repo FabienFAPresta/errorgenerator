@@ -28,10 +28,11 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
 class ErrorGenerator extends Module
 {
-    protected $config_form = false;
-
     public function __construct()
     {
         $this->name = 'errorgenerator';
@@ -60,7 +61,6 @@ class ErrorGenerator extends Module
     public function install()
     {
         return parent::install() &&
-            $this->registerHook('header') &&
             $this->registerHook('displayBackOfficeHeader');
     }
 
@@ -74,18 +74,8 @@ class ErrorGenerator extends Module
     */
     public function hookDisplayBackOfficeHeader()
     {
-        if (Tools::getValue('configure') == $this->name) {
-            $this->context->controller->addJS($this->_path.'views/js/back.js');
-            $this->context->controller->addCSS($this->_path.'views/css/back.css');
+        if (Tools::getValue('die')) {
+            throw new Exception('Exception thrown by hookDisplayBackOfficeHeader 💀');
         }
-    }
-
-    /**
-     * Add the CSS & JavaScript files you want to be added on the FO.
-     */
-    public function hookHeader()
-    {
-        $this->context->controller->addJS($this->_path.'/views/js/front.js');
-        $this->context->controller->addCSS($this->_path.'/views/css/front.css');
     }
 }
