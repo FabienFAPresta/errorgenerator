@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace PrestaShop\Module\ErrorGenerator\Controller;
 
-use _PHPStan_82ef69dc5\Nette\Neon\Exception;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -31,7 +30,7 @@ class AdminErrorGeneratorController extends FrameworkBundleAdminController
 {
     public function throwError()
     {
-        throw new Exception('Exception thrown by AdminErrorGeneratorController::throwError 💀');
+        throw new \Exception('Exception thrown by AdminErrorGeneratorController::throwError 💀');
     }
 
     public function throwTwigError(): Response

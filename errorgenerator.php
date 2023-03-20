@@ -61,9 +61,54 @@ class ErrorGenerator extends Module
     public function install()
     {
         return parent::install() &&
+            $this->installTabs() &&
             $this->registerHook('displayBackOfficeHeader');
     }
 
+    private function installTabs()
+    {
+        foreach ([
+             [
+                 'class_name' => 'AdminErrorGeneratorController',
+                 'route_name' => 'errorgenerator_throw_error',
+                 'name' => 'Générer 500',
+                 'icon' => 'dangerous',
+                 'parent' => 'CONFIGURE',
+                 'position' => 1,
+                 'active' => true,
+                 'enabled' => true,
+             ],
+             [
+                 'class_name' => 'AdminErrorGeneratorController',
+                 'route_name' => 'errorgenerator_throw_twig_error',
+                 'name' => 'Générer 500 twig',
+                 'icon' => 'dangerous',
+                 'parent' => 'CONFIGURE',
+                 'position' => 2,
+                 'active' => true,
+                 'enabled' => true,
+             ]
+         ] as $tabItem) {
+            $tab = new Tab();
+            $tab->id_parent = $tabItem['parent'] ? Tab::getIdFromClassName($tabItem['parent']) : 0;
+            $tab->module = $this->name;
+            $tab->class_name = $tabItem['class_name'];
+            $tab->route_name = $tabItem['route_name'];
+            $tab->icon = $tabItem['icon'];
+            $tab->active = $tabItem['active'];
+            $tab->enabled = $tabItem['enabled'];
+            foreach (Language::getLanguages() as $lang) {
+                $tab->name[$lang['id_lang']] = $tabItem['name'];
+            }
+            $tab->add();
+
+            if (isset($tabItem['position'])) {
+                $tab->updatePosition(false, $tabItem['position']);
+            }
+        }
+
+        return true;
+    }
     public function uninstall()
     {
         return parent::uninstall();
